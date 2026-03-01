@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setQuery } from "../features/searchSlice";
+import { Search } from "lucide-react";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.search);
-
   const [text, setText] = useState("");
 
   const handleSubmit = (e) => {
@@ -15,40 +15,37 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="w-full px-4 md:px-10 mt-10 flex justify-center">
+    <div className="w-full flex justify-center mt-16 px-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-5xl flex items-center"
+        className="relative w-full max-w-4xl"
       >
-        {/* Input */}
-        <input
-          type="text"
-          placeholder="Search images, gifs, videos..."
-          value={text}
-          required
-          onChange={(e) => setText(e.target.value)}
-          className="
-            flex-1 
-            h-16 
-            px-6 
-            text-lg 
-            rounded-l-2xl 
-            bg-zinc-900 
-            text-white 
-            border border-zinc-700 
-            focus:outline-none 
-            focus:ring-2 
-            focus:ring-white/50 
-            transition-all
-          "
-        />
+        <div className="flex items-center backdrop-blur-xl bg-white/5 border border-white/10 rounded-full shadow-2xl overflow-hidden focus-within:ring-2 focus-within:ring-purple-500 transition-all duration-300">
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="h-12 px-10 text-lg font-semibold text-white rounded-r-2xl shadow-[0_8px_0_rgb(124,58,237)] hover:translate-y-1 hover:shadow-[0_4px_0_rgb(124,58,237)] active:translate-y-2 active:shadow-[0_2px_0_rgb(124,58,237)] transition-all duration-150 disabled:opacity-50" >
-          {loading ? "Searching..." : "Search"}
-        </button>
+          {/* Search Icon */}
+          <div className="pl-6 text-gray-400">
+            <Search size={20} />
+          </div>
+
+          {/* Input */}
+          <input
+            type="text"
+            placeholder="Search something amazing..."
+            value={text}
+            required
+            onChange={(e) => setText(e.target.value)}
+            className="flex-1 bg-transparent py-4 px-4 text-white text-lg focus:outline-none placeholder-gray-400"
+          />
+
+          {/* Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="mr-2 px-8 py-3 rounded-full  from-purple-600 to-pink-500 text-white font-semibold hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg disabled:opacity-50"
+          >
+            {loading ? "Searching..." : "Go"}
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -31,6 +31,7 @@ const ResultGrid = () => {
             title: item.alt_description,
             thumbnail: item.urls.thumb,
             src: item.urls.full,
+            url: item.links.html,
           }));
         }
 
@@ -42,8 +43,10 @@ const ResultGrid = () => {
             title: item.user?.name || "video",
             thumbnail: item.image,
             src: item.video_files?.[0]?.link,
+            url: item.url,
           }));
         }
+
 
         console.log("Fetched data:", data);
         dispatch(searchResults(data));
@@ -63,10 +66,10 @@ const ResultGrid = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1  px-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {results.map((item, index) => {
         return <div key={index}>
-            <ResultCard item={item} />
+              <ResultCard item={item} />
         </div>;
       })}
     </div>
